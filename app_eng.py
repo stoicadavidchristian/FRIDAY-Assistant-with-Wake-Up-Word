@@ -5,7 +5,7 @@ import os
 import openai
 import json
 
-openai.api_key = "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"
+openai.api_key = "your api key from OpenAI"
 
 
 # Initialize recognizer and microphone
