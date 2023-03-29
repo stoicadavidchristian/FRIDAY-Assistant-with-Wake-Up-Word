@@ -7,12 +7,9 @@ import json
 
 openai.api_key = "your api key from OpenAI"
 
-
-# Initialize recognizer and microphone
 r = sr.Recognizer()
 mic = sr.Microphone()
 
-# Set the wake-up word
 WAKE_UP_WORD = "friday"
 
 def speak(text):
@@ -20,12 +17,12 @@ def speak(text):
     tts.save('output.mp3')
     playsound('output.mp3')
     os.remove('output.mp3')
-# Define a function to listen for the wake-up word
+
 def listen_for_wake_word():
     with mic as source:
         print("Waiting...")
-        r.adjust_for_ambient_noise(source)  # calibrate the microphone
-        audio = r.listen(source)  # listen for audio input
+        r.adjust_for_ambient_noise(source) 
+        audio = r.listen(source)  
 
     try:
         text = r.recognize_google(audio, language="en-EN")
@@ -43,8 +40,8 @@ def listen_for_audio():
     with sr.Microphone() as source:
         print("I listen to you sir")
         speak("I listen to you sir")
-        r.adjust_for_ambient_noise(source)  # calibrate the microphone
-        audio = r.listen(source)  # listen for audio input
+        r.adjust_for_ambient_noise(source)
+        audio = r.listen(source) 
 
     try:
         text = r.recognize_google(audio, language="en-EN")
@@ -57,7 +54,7 @@ def listen_for_audio():
             top_p=1.0,
             frequency_penalty=0.5,
             presence_penalty=0.0,
-            stop=["Tu:"]
+            stop=["You:"]
         )
         json_object = json.loads(str(response))
         print(json_object['choices'][0]['text'])
@@ -68,7 +65,6 @@ def listen_for_audio():
     except sr.RequestError:
         print("ERROR")
 
-# Run the wake-up word listener in a loop
 while True:
     while listen_for_wake_word():
         listen_for_audio()

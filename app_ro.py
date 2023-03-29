@@ -7,12 +7,9 @@ import json
 
 openai.api_key = "Aici introduci cheia ( api-ul ) de la OpenAI"
 
-
-# Initialize recognizer and microphone
 r = sr.Recognizer()
 mic = sr.Microphone()
 
-# Set the wake-up word
 WAKE_UP_WORD = "friday"
 
 def speak(text):
@@ -20,12 +17,12 @@ def speak(text):
     tts.save('output.mp3')
     playsound('output.mp3')
     os.remove('output.mp3')
-# Define a function to listen for the wake-up word
+
 def listen_for_wake_word():
     with mic as source:
         print("Aştept...")
-        r.adjust_for_ambient_noise(source)  # calibrate the microphone
-        audio = r.listen(source)  # listen for audio input
+        r.adjust_for_ambient_noise(source)  
+        audio = r.listen(source) 
 
     try:
         text = r.recognize_google(audio, language="ro-RO")
@@ -43,8 +40,8 @@ def listen_for_audio():
     with sr.Microphone() as source:
         print("Vă ascult domnule")
         speak("Vă ascult domnule")
-        r.adjust_for_ambient_noise(source)  # calibrate the microphone
-        audio = r.listen(source)  # listen for audio input
+        r.adjust_for_ambient_noise(source) 
+        audio = r.listen(source)
 
     try:
         text = r.recognize_google(audio, language="ro-RO")
@@ -67,7 +64,6 @@ def listen_for_audio():
     except sr.RequestError:
         print("Eroare")
 
-# Run the wake-up word listener in a loop
 while True:
     while listen_for_wake_word():
         listen_for_audio()
